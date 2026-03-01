@@ -80,3 +80,7 @@ Administrátor – spravuje hráče, turnaje, otevření i partie.
 Aplikace bude implementována pomocí frameworku Django s využitím relační databáze (SQLite/PostgreSQL). Uživatelské rozhraní bude navrženo metodikou mobile-first a stylováno pomocí Bootstrapu. Součástí systému bude autentizace, formuláře pro práci s databází a pokročilé filtrování dat.
 
 Hlavním přínosem aplikace je systematizace šachových dat a možnost jejich efektivního vyhledávání a analýzy.
+
+## User Flow Diagram
+
+![User Flow](images/userflow.png)

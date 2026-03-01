@@ -39,7 +39,9 @@ pip install -r requirements.txt
 # ♟️ ChessBase – Databáze šachových partií
 
 Autor: Viktor Meca
+
 Předmět: Webové technologie
+
 Fáze projektu: Analýza a Design
 
 ChessBase je webová aplikace vytvořená v Django frameworku, která slouží jako databáze šachových partií. 

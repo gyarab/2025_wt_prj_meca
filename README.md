@@ -83,4 +83,5 @@ Hlavním přínosem aplikace je systematizace šachových dat a možnost jejich 
 
 ## User Flow Diagram
 
+![User Flow](images/userflow_original.jpg)
 ![User Flow](images/userflow.png)

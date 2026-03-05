@@ -88,7 +88,7 @@ Hlavním přínosem aplikace je systematizace šachových dat a možnost jejich 
 
 ## Wifeframes
 
-![Wireframe 1](images/wireframe.jpg)
+![Wireframe 1](prj/images/wireframe.jpg)
 ![Wireframe 2](images/wireframe_admindashboard.jpg)
 ![Wireframe 3](images/wireframe_database.jpg)
 ![Wireframe 4](images/wireframe_analysis.jpg)

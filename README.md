@@ -88,8 +88,8 @@ Hlavním přínosem aplikace je systematizace šachových dat a možnost jejich 
 
 ## Wifeframes
 
-![Wireframe 1](file:///home/mecova/images/wireframe.jpg)
-![Wireframe 2](file:///home/mecova/images/wireframe_admindashboard.jpg)
-![Wireframe 3](file:///home/mecova/images/wireframe_database.jpg)
-![Wireframe 4](file:///home/mecova/images/wireframe_analysis.jpg)
-![Wireframe 5](file:///home/mecova/images/wireframe_login.jpg)
+![Wireframe 1](images/wireframe.jpg)
+![Wireframe 2](images/wireframe_admindashboard.jpg)
+![Wireframe 3](images/wireframe_database.jpg)
+![Wireframe 4](images/wireframe_analysis.jpg)
+![Wireframe 5](images/wireframe_login.jpg)

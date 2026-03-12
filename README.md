@@ -105,4 +105,4 @@ Hlavním přínosem aplikace je systematizace šachových dat a možnost jejich 
 
 ## E-R diagram databáze
 
-![ER Diagram](images/er_diagram.jpg)
+![E-R Diagram](images/er_diagram.jpg)

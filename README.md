@@ -42,6 +42,15 @@ Autor: Viktor Meca
 
 Předmět: Webové technologie
 
+Struktura projektu: 
+
+ChessBase – Databáze šachových partií
+
+1. Odborný článek
+2. User Flow Diagram
+3. Wireframes
+4. E-R Diagram databáze
+
 Fáze projektu: Analýza a Design
 
 ChessBase je webová aplikace vytvořená v Django frameworku, která slouží jako databáze šachových partií. 

@@ -102,3 +102,7 @@ Hlavním přínosem aplikace je systematizace šachových dat a možnost jejich 
 ![Wireframe 3](images/wireframe_database.jpg)
 ![Wireframe 4](images/wireframe_analysis.jpg)
 ![Wireframe 5](images/wireframe_login.jpg)
+
+## E-R diagram databáze
+
+![ER Diagram](images/er_diagram.jpg)

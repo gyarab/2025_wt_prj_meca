@@ -34,6 +34,12 @@ Je třeba ujistit se, že jsou nainstalovány všechny závislosti:
 pip install -r requirements.txt
 ```
 
+Spustit lokální server
+
+```bash
+cd prj
+./manage.py
+
 
 
 # ♟️ ChessBase – Databáze šachových partií

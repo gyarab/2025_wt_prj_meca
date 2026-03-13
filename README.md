@@ -41,7 +41,6 @@ cd prj
 ./manage.py
 
 
-
 # ♟️ ChessBase – Databáze šachových partií
 
 Autor: Viktor Meca

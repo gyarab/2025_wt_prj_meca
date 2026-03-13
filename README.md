@@ -39,7 +39,7 @@ Spustit lokální server
 ```bash
 cd prj
 ./manage.py
-
+```
 
 # ♟️ ChessBase – Databáze šachových partií
 

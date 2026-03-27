@@ -9,10 +9,6 @@ class PlayerAdmin(admin.ModelAdmin):
     search_fields = ['name', 'surname']
     list_filter = ['birth_year', 'rating']
 
-
-from django.contrib import admin
-from .models import Game, Player, Tournament, Opening
-
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
     list_display = ["white_player_link", "black_player_link", "tournament", "opening", "date", "result", "ECO", "moves", "replay_board"]
@@ -35,6 +31,7 @@ class GameAdmin(admin.ModelAdmin):
             url = reverse(f'admin:{obj._meta.app_label}_player_change', args=[obj.white_player.id])
             return format_html('<a href="{}">{}</a>', url, obj.white_player)
         return "-"
+    white_player_link.admin_order_field = "white_player"  # Umožní řadit podle tohoto pole
     white_player_link.short_description = "White Player"  # Nastaví název sloupce v adminu
 
     def black_player_link(self, obj):
@@ -42,19 +39,9 @@ class GameAdmin(admin.ModelAdmin):
             # Dynamicky získá URL pro úpravu hráče (admin:app_model_change)
             url = reverse(f'admin:{obj._meta.app_label}_player_change', args=[obj.black_player.id])
             return format_html('<a href="{}">{}</a>', url, obj.black_player)
-        return "-"
+ 
+    black_player_link.admin_order_field = "black_player" # Umožní řadit podle tohoto pole
     black_player_link.short_description = "Black Player"  # Nastaví název sloupce v adminu
-    
-    # --- CUSTOM SLOUPEC PRO PŘEHRÁNÍ PARTIE ---
-    def replay_board(self, obj):
-        if obj.moves:
-            # Vygeneruje tlačítko a uloží do něj tahy (PGN)
-            return format_html(
-                '<button type="button" class="button replay-btn" data-moves="{}">Přehrát</button>',
-                obj.moves
-            )
-        return "-"
-    replay_board.short_description = "Chessboard"  # Nastaví název sloupce v adminu
     
     # --- CUSTOM SLOUPEC PRO PŘEHRÁNÍ PARTIE ---
     def replay_board(self, obj):

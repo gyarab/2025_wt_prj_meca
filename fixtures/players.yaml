@@ -1,0 +1,30 @@
+- model: auth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$1200000$d3mDzcZEsepdNqslPsdzqF$7wSQWGWk6GPaElVPvl5TedL9GY/bVALWIV6R81lA0Y0=
+    last_login: null
+    is_superuser: true
+    username: mecova
+    first_name: ''
+    last_name: ''
+    email: viktor.meca.s@gyarab.cz
+    is_staff: true
+    is_active: true
+    date_joined: 2026-03-20 15:35:25.462467+00:00
+    groups: []
+    user_permissions: []
+- model: auth.user
+  pk: 2
+  fields:
+    password: pbkdf2_sha256$1200000$8j0P3t0lW2sRBUXnDy8cRH$uFvcOA61PoaVlAtQL76Yb0WYGZ/83zqVj++p/sJYpLo=
+    last_login: 2026-03-26 21:51:13+00:00
+    is_superuser: true
+    username: Vikous11
+    first_name: Viktor
+    last_name: Meca
+    email: viktor.meca.s@gyarab.cz
+    is_staff: true
+    is_active: true
+    date_joined: 2026-03-26 21:38:41+00:00
+    groups: []
+    user_permissions: []

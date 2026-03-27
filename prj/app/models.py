@@ -46,6 +46,8 @@ class Game(models.Model):
     opening = models.ForeignKey(Opening, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     result = models.CharField(max_length=3, choices=RESULT_CHOICES)
+    ECO = models.CharField(max_length=10, blank=True)
+    moves = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.white_player} vs {self.black_player} ({self.date})"

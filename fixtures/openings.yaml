@@ -1,0 +1,29 @@
+- model: app.opening
+  pk: 1
+  fields:
+    eco_code: 'C65'
+    name: 'Ruy Lopez, Berlin Defense'
+
+- model: app.opening
+  pk: 2
+  fields:
+    eco_code: 'B90'
+    name: 'Sicilian defense, Najdorf variation'
+
+- model: app.opening
+  pk: 3
+  fields:
+    eco_code: 'D85' 
+    name: 'Grünfeld indian defense, Russian variation'
+
+- model: app.opening
+  pk: 4
+  fields:
+    eco_code: 'E62'
+    name: 'Kings Indian Defense, Fianchetto Variation'
+
+- model: app.opening
+  pk: 5
+  fields:
+    eco_code: 'C50'
+    name: 'Italian Game'

@@ -20,7 +20,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent  # Toto musí být PRVNÍ
 
 FIXTURE_DIRS = [
-    os.path.join(BASE_DIR, '../fixtures'),  # Ty dvě tečky znamenají "vyskoč o úroveň výš"
+    os.path.join(BASE_DIR, 'fixtures'),
 ]
 
 # Quick-start development settings - unsuitable for production

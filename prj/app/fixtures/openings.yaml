@@ -20,7 +20,7 @@
     name: 'French defense'
     moves: '1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. Bg5 Be7 5. e5 Nfd7'
     variation: 'Winawer variation'
-    ECO_code: 'C15' 
+    ECO_code: 'C15'
 
 - model: app.opening
   pk: 4
@@ -33,9 +33,7 @@
 - model: app.opening
   pk: 5
   fields:
-    name: 'King\'s Indian defense'
+    name: "King's Indian defense"
     moves: '1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 O-O'
     variation: 'Classical variation'
-    ECO_code: 'E60'     
-
- 
+    ECO_code: 'E60'

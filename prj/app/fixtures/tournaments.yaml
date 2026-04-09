@@ -1,0 +1,39 @@
+- model: app.tournament
+  pk: 1
+  fields:
+    name: World Chess Championship
+    location: Dubai
+    start_date: 2021-11-26
+    end_date: 2021-12-16
+
+- model: app.tournament
+  pk: 2
+  fields:
+    name: Candidates Tournament
+    location: Yekaterinburg
+    start_date: 2020-06-16
+    end_date: 2020-07-07
+
+- model: app.tournament
+  pk: 3
+  fields:
+    name: Grand Chess Tour
+    location: Various
+    start_date: 2022-06-18
+    end_date: 2022-06-30
+
+- model: app.tournament
+  pk: 4
+  fields:
+    name: Tata Steel Chess
+    location: Wijk aan Zee
+    start_date: 2023-01-15
+    end_date: 2023-01-29
+
+- model: app.tournament
+  pk: 5
+  fields:
+    name: Candidates Tournament
+    location: Madrid
+    start_date: 2024-06-16
+    end_date: 2024-07-07

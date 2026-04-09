@@ -1,0 +1,55 @@
+- model: app.player
+  pk: 1
+  fields:
+    name: 'Magnus'
+    surname: 'Carlsen'
+    rating: 2862
+    birth_year: 1990
+
+- model: app.player
+  pk: 2
+  fields:
+    name: 'Fabiano'
+    surname: 'Caruana'
+    rating: 2820
+    birth_year: 1992
+
+- model: app.player
+  pk: 3
+  fields:
+    name: 'Ding'
+    surname: 'Liren'
+    rating: 2791
+    birth_year: 1992
+
+- model: app.player
+  pk: 4
+  fields:
+    name: 'Ian'
+    surname: 'Nepomniachtchi'
+    rating: 2789
+    birth_year: 1990    
+
+- model: app.player
+  pk: 5
+  fields:
+    name: 'Levon'
+    surname: 'Aronian'
+    rating: 2781
+    birth_year: 1982
+    
+- model: app.player
+  pk: 6
+  fields:
+    name: 'Anish'
+    surname: 'Giri'
+    rating: 2776
+    birth_year: 1994
+
+- model: app.player
+  pk: 7
+  fields:
+    name: 'Alireza'
+    surname: 'Firouzja'
+    rating: 2770
+    birth_year: 2003

@@ -4,53 +4,66 @@ from .models import Game
 
 api = NinjaAPI()
 
-class GameSchema(ModelSchema):
+# --- SCHÉMATA ---
+
+class MessageSchema(Schema):
+    message: str
+
+class GameOut(ModelSchema):
     class Meta:
         model = Game
-        model_fields = "__all__"
-        exclude = [ "white_player", "black_player", "tournament", "opening" ]
-        
-    white_player: str
-    black_player: str
-    tournament: str | None
-    opening: str | None
+        # TADY BYLA CHYBA - musíme explicitně říct, co chceme
+        model_fields = "__all__" 
 
-class GameListingSchema(Schema):
-    count: int
-    results: List[GameSchema]
-    
-@api.get("/games", response=GameListingSchema)
-def get_games(request):
-    games_qs = Game.objects.select_related("white_player", "black_player", "tournament", "opening").all()
-    out = []
-    for game in games_qs:
-        out.append( {
-            "id": game.id,
-            "result": game.result,
-            "white player": game.white_player.name + " " + game.white_player.surname + " (" + str(game.white_player.rating) + ")",
-            "black player": game.black_player.name + " " + game.black_player.surname + " (" + str(game.black_player.rating) + ")",
-            "tournament": game.tournament.name if game.tournament else None,
-            "opening": game.opening.name if game.opening else None,
-            "date": game.date,
-        })
-    return {
-        "count": len(out),
-        "results": out
-    }
-           
-@api.get("/games/{game_id}", response=GameSchema)   
+    # Přidáme si hezčí výpis hráčů (nepovinné, ale vypadá to lépe)
+    white_player: str = None
+    black_player: str = None
+
+    @staticmethod
+    def resolve_white_player(obj):
+        return f"{obj.white_player.name} {obj.white_player.surname}" if obj.white_player else "Unknown"
+
+    @staticmethod
+    def resolve_black_player(obj):
+        return f"{obj.black_player.name} {obj.black_player.surname}" if obj.black_player else "Unknown"
+
+class GameCreateIn(Schema):
+    """
+    Pro vstup (POST/PUT) je bezpečnější použít obyčejné Schema.
+    Vyhneš se tak ConfigErroru a lépe se ti budou posílat ID hráčů.
+    """
+    white_player_id: int
+    black_player_id: int
+    result: str
+    moves: str
+    date: str  # Očekává formát YYYY-MM-DD
+
+# --- ENDPOINTY ---
+
+@api.get("/games", response=List[GameOut])
+def list_games(request):
+    return Game.objects.all()
+
+@api.get("/games/{game_id}", response={200: GameOut, 404: MessageSchema})
 def get_game(request, game_id: int):
     try:
-        game = Game.objects.select_related("white_player", "black_player", "tournament", "opening").get(id=game_id)           
-        return {
-            "id:": game.id,
-            "result": game.result,
-            "white player": game.white_player.name + " " + game.white_player.surname + " (" + str(game.white_player.rating) + ")",
-            "black player": game.black_player.name + " " + game.black_player.surname + " (" + str(game.black_player.rating) + ")",
-            "tournament": game.tournament.name if game.tournament else None,
-            "opening": game.opening.name if game.opening else None,
-            "date": game.date, 
-            "moves": game.moves,    
-        }  
+        return Game.objects.get(id=game_id)
+    except Game.DoesNotExist:
+        return 404, {"message": "Game not found"}
+
+@api.post("/games", response={201: GameOut})
+def create_game(request, data: GameCreateIn):
+    # Rozbalíme data ze schématu přímo do parametrů create()
+    game = Game.objects.create(**data.dict())
+    return 201, game
+
+@api.put("/games/{game_id}", response={200: GameOut, 404: MessageSchema})
+def update_game(request, game_id: int, data: GameCreateIn):
+    try:
+        game = Game.objects.get(id=game_id)
+        for attr, value in data.dict().items():
+            setattr(game, attr, value)
+        game.save()
+        return game
     except Game.DoesNotExist:
         return 404, {"message": "Game not found"}

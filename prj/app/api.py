@@ -49,7 +49,7 @@ def get_game(request, game_id: int):
             "black player": game.black_player.name + " " + game.black_player.surname + " (" + str(game.black_player.rating) + ")",
             "tournament": game.tournament.name if game.tournament else None,
             "opening": game.opening.name if game.opening else None,
-            "date": game.date,
+            "date": game.date, 
             "moves": game.moves,    
         }  
     except Game.DoesNotExist:

@@ -1,5 +1,5 @@
 django
-django-import-export
 pyyaml
+django-ninja
 
 

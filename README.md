@@ -23,9 +23,8 @@ source ./venv/bin/activate
 source ./venv/Scripts/activate
 
 # Windows - Power shell
-.\venv\Scripts\Activate.ps1
+...
 ```
-
 
 Je třeba ujistit se, že jsou nainstalovány všechny závislosti:
 
@@ -34,11 +33,40 @@ Je třeba ujistit se, že jsou nainstalovány všechny závislosti:
 pip install -r requirements.txt
 ```
 
-Spustit lokální server
+Spustit lokalni server
 
 ```bash
 cd prj
-./manage.py
+./manage.py runserver
+```
+
+Pokud pouštíme projekt poprvé, je třeba inicializovat DB pomocí
+
+```bash
+./manage.py migrate
+```
+
+Pokud je DB prázdná a chceme mít přístup do Django administrace, vytvoříme si uživatele pomocí
+
+```bash
+./manage.py createsuperuser
+```
+
+Doporučuji použít username `admin` a heslo `admin`, bez e-mailu.
+
+
+## Změna `models.py`
+
+Po kazde zmene v models.py je treba pustit skript, ktery vygeneruje zmenu struktury DB.
+
+```bash
+./manage.py makemigrations
+```
+
+Pote zmenu DB aplikovat na aktualni zivou DB
+
+```bash
+./manage.py migrate
 ```
 
 # ♟️ ChessBase – Databáze šachových partií

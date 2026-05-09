@@ -1,6 +1,6 @@
 from ninja import NinjaAPI, ModelSchema, Schema
 from typing import List
-from .models import Game
+from .models import Game, Player, Tournament
 
 api = NinjaAPI()
 

@@ -1,29 +1,69 @@
-"""
-URL configuration for prj project.
+from ninja import NinjaAPI, ModelSchema, Schema
+from typing import List
+from .models import Game
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path
+api = NinjaAPI()
 
-from app import views
-from app.api import api
+# --- SCHÉMATA ---
 
-urlpatterns = [
-    path("api/", api.urls),
-    path('admin/', admin.site.urls),
-    path('', views.render_homepage, name ="homepage"),
- #  path('players/', views.render_players, name = "players"),
-    path('about/', views.render_about, name = "about"),
-]
+class MessageSchema(Schema):
+    message: str
+
+class GameOut(ModelSchema):
+    class Meta:
+        model = Game
+        # TADY BYLA CHYBA - musíme explicitně říct, co chceme
+        model_fields = "__all__" 
+
+    # Přidáme si hezčí výpis hráčů (nepovinné, ale vypadá to lépe)
+    white_player: str = None
+    black_player: str = None
+
+    @staticmethod
+    def resolve_white_player(obj):
+        return f"{obj.white_player.name} {obj.white_player.surname}" if obj.white_player else "Unknown"
+
+    @staticmethod
+    def resolve_black_player(obj):
+        return f"{obj.black_player.name} {obj.black_player.surname}" if obj.black_player else "Unknown"
+
+class GameCreateIn(Schema):
+    """
+    Pro vstup (POST/PUT) je bezpečnější použít obyčejné Schema.
+    Vyhneš se tak ConfigErroru a lépe se ti budou posílat ID hráčů.
+    """
+    white_player_id: int
+    black_player_id: int
+    result: str
+    moves: str
+    date: str  # Očekává formát YYYY-MM-DD
+
+# --- ENDPOINTY ---
+
+@api.get("/games", response=List[GameOut])
+def list_games(request):
+    return Game.objects.all()
+
+@api.get("/games/{game_id}", response={200: GameOut, 404: MessageSchema})
+def get_game(request, game_id: int):
+    try:
+        return Game.objects.get(id=game_id)
+    except Game.DoesNotExist:
+        return 404, {"message": "Game not found"}
+
+@api.post("/games", response={201: GameOut})
+def create_game(request, data: GameCreateIn):
+    # Rozbalíme data ze schématu přímo do parametrů create()
+    game = Game.objects.create(**data.dict())
+    return 201, game
+
+@api.put("/games/{game_id}", response={200: GameOut, 404: MessageSchema})
+def update_game(request, game_id: int, data: GameCreateIn):
+    try:
+        game = Game.objects.get(id=game_id)
+        for attr, value in data.dict().items():
+            setattr(game, attr, value)
+        game.save()
+        return game
+    except Game.DoesNotExist:
+        return 404, {"message": "Game not found"}

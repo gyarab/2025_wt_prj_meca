@@ -45,3 +45,17 @@
     result: 1-0
     ECO: 'B12'
     moves: '1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Bf5 5. Ng3 Bg6'
+
+- model: app.game
+  pk: 5
+  fields:
+    white_player: 1
+    black_player: 8
+    tournament: 6
+    opening: 6
+    date: 2024-12-10
+    result: 1-0
+    ECO: 'E2O'
+    moves: '1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. g3 Sxc3+ 5. bxc3 Jc6'
+    
+

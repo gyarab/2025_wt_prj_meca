@@ -97,7 +97,6 @@ def update_game(request, game_id: int, payload: GameInSchema):
     except Game.DoesNotExist:
         return 404, {"message": "Game not found"}
 
-
 @api.delete("/games/{game_id}", response={204: None, 404: MessageSchema})
 def delete_game(request, game_id: int):
     try:

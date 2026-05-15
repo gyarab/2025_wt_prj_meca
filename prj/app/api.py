@@ -99,8 +99,6 @@ def update_game(request, game_id: int, payload: GameInSchema):
 
 
 # --- DOBROVOLNÉ ROZŠÍŘENÍ (Další business objekt) ---
-
 @api.get("/players", response=List[PlayerSchema])
 def get_players(request):
     """Endpoint navíc pro získání extra bodů ze zadání."""
-    return Player.objects.all()

@@ -1,0 +1,31 @@
+(% extends 'base.html' %)
+
+(% block title %)API Playground(% endblock %)
+
+(% block content %)
+<h1 class="page-title">API Playground</h1>
+
+<p class="muted">Zde můžete testovat naše API pomocí jednoduchých formulářů.</p>
+
+<div class = "api-text">
+ <h2>Testování Game GET endpointu</h2>
+ <input type="number" id="gameIdInput" placeholder="Zadejte ID hry">
+ <button id ="fetchGamebutton" onclick="fetchGame()">Načíst hru</button>
+ <pre id="gameResponse" class="response"></pre>
+</div>
+
+<script>
+function fetchGame() {
+    const gameId = document.getElementById('gameIdInput').value;
+    fetch(`/api/games/${gameId}/`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('gameResponse').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            document.getElementById('gameResponse').textContent = 'Chyba: ' + error;
+        });
+}
+    console.log("API Playground loaded");
+</script>
+(% endblock %)

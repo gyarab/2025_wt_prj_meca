@@ -9,6 +9,7 @@ class PlayerAdmin(admin.ModelAdmin):
     search_fields = ['name', 'surname']
     list_filter = ['birth_year', 'rating']
 
+
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
     list_display = ["white_player_link", "black_player_link", "tournament", "opening", "date", "result", "ECO", "moves", "replay_board"]

@@ -98,6 +98,15 @@ def update_game(request, game_id: int, payload: GameInSchema):
         return 404, {"message": "Game not found"}
 
 
+@api.delete("/games/{game_id}", response={204: None, 404: MessageSchema})
+def delete_game(request, game_id: int):
+    try:
+        game = Game.objects.get(id=game_id)
+        game.delete()
+        return 204, None
+    except Game.DoesNotExist:
+        return 404, {"message": "Game not found"}
+    
 # --- DOBROVOLNÉ ROZŠÍŘENÍ (Další business objekt) ---
 @api.get("/players", response=List[PlayerSchema])
 def get_players(request):

@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api.urls),  # Přidáme URL pro API
     path('', views.render_homepage, name="homepage"),
-    path('api-playground/', views.render_api_playground, name="api_playground"),
+    path('api-playground/', views.render_api_playground, name='api_playground'),
     path('about/', views.render_about, name="about"),
 ]

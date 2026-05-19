@@ -26,7 +26,7 @@ function fetchGame() {
     fetch(`/api/games/${gameId}`)
         .then(response => response.json())
         if(!response.ok) {
-            throw new Error('Hra s ID ${gameId} nebyla nalezena (status: ${response.status})');
+            throw new Error(`Hra s ID ${gameId} nebyla nalezena (status: ${response.status})`);
         }
         return response.json(); //vrací další Promise, která se vyřeší s daty z JSON
     })

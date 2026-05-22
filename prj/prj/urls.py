@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app.api import api
 from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.render_homepage, name ="homepage"),
- #  path('players/', views.render_players, name = "players"),
-    path('about/', views.render_about, name = "about"),
+    path('api/', api.urls),  # Přidáme URL pro API
+    path('', views.render_homepage, name="homepage"),
+    path('api-playground/', views.render_api_playground, name='api_playground'),
+    path('about/', views.render_about, name="about"),
 ]

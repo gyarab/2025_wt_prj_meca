@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}API Playground{% endblock %}
+
+{% block content %}
+<h1 class="page-title">API Playground</h1>
+
+<p class="muted">Zde můžete testovat naše API pomocí jednoduchých formulářů.</p>
+
+<div class = "api-text">
+ <h2>Testování Game GET endpointu</h2>
+ <input type="number" id="gameIdInput" placeholder="Zadejte ID hry">
+ <button id ="fetchGamebutton" onclick="fetchGame()">Načíst hru</button>
+ <button id = "resetButton" onclick="resetOutput()">Vyčistit výstup</button>
+ <pre id="gameResponse" class="response"></pre>
+</div>
+
+<script>
+function fetchGame() {
+    const gameId = document.getElementById('gameIdInput').value;
+    if(!gameId) {
+        document.getElementById('gameResponse').textContent = 'Chyba: Prosím zadejte ID hry.';
+        return;
+    }
+    // Začátek asychronního volání (fetch vrací Promise)
+    fetch(`/api/games/${gameId}`)
+        .then(response => response.json())
+        if(!response.ok) {
+            throw new Error(`Hra s ID ${gameId} nebyla nalezena (status: ${response.status})`);
+        }
+        return response.json(); //vrací další Promise, která se vyřeší s daty z JSON
+    })
+    .then(data => {
+            document.getElementById('gameResponse').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            document.getElementById('gameResponse').textContent = 'Chyba: ' + error;
+        });
+}
+    console.log("API Playground loaded");
+</script>
+{% endblock %}
+
+{% extends 'base.html' %}
+
+{% block title %}API Playground{% endblock %}
+
+{% block content %}
+<h1 class="page-title">API Playground</h1>
+
+<p class="muted">Zde můžete testovat naše API pomocí jednoduchých formulářů.</p>
+
+<div class="api-text">
+    <h2>Testování Game GET endpointu</h2>
+    <input type="number" id="gameIdInput" placeholder="Zadejte ID hry">
+    <button id="fetchGamebutton" onclick="fetchGame()">Načíst hru</button>
+    <button id="resetButton" onclick="resetOutput()">Vyčistit výstup</button>
+    <pre id="gameResponse" class="response"></pre>
+</div>
+
+<script>
+function fetchGame() {
+    const gameId = document.getElementById('gameIdInput').value;
+    
+    // Pokud uživatel nezadá ID, nebudeme posílat prázdný request
+    if (!gameId) {
+        document.getElementById('gameResponse').textContent = 'Chyba: Prosím zadejte ID hry.';
+        return;
+    }
+
+    // Začátek asynchronního volání (fetch vrací Promise)
+    fetch(`/api/games/${gameId}`)
+        .then(response => {
+            // Kontrola, zda server vrátil status 200-299 (např. zda hra vůbec existuje)
+            if (!response.ok) {
+                throw new Error(`Hra s ID ${gameId} nebyla nalezena (Status: ${response.status})`);
+            }
+            return response.json(); // vrací další Promise
+        })
+        .then(data => {
+            // Úspěšně zpracovaná data zobrazíme jako zformátované JSON
+            document.getElementById('gameResponse').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            // Zachycení chyb (síťový výpadek, neexistující ID apod.)
+            document.getElementById('gameResponse').textContent = 'Chyba: ' + error.message;
+        });
+}
+
+// Chybějící funkce pro resetování výstupu
+function resetOutput() {
+    document.getElementById('gameIdInput').value = '';
+    document.getElementById('gameResponse').textContent = '';
+}
+
+console.log("API Playground loaded");
+</script>
+{% endblock %}

@@ -30,7 +30,6 @@ class Opening(models.Model):
     def __str__(self):
         return f"{self.name} ({self.ECO_code})"
 
-
 class Game(models.Model):
     RESULT_CHOICES = [
         ("1-0", "1-0"),

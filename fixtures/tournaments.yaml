@@ -37,3 +37,12 @@
     location: Madrid
     start_date: 2024-06-16
     end_date: 2024-07-07
+
+  -model: app.tournament
+  pk: 6
+  fields:
+    namme: Chess.com op playoffs
+    location: Online
+    start_date: 2024-12-01
+    end_date: 2024-12-15
+  

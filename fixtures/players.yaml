@@ -53,3 +53,11 @@
     surname: 'Firouzja'
     rating: 2770
     birth_year: 2003
+
+  - model: app.player
+  pk: 8
+  fields:
+    name: 'Keymer'
+    surname: 'Vincent'
+    rating: 2762
+    birth_year: 2004

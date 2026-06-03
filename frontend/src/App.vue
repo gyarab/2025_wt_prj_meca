@@ -8,8 +8,8 @@
         <h1>ChessBase (vue) </h1>
         </RouterLink>
     </header>
-        <main>
+    <main>
             <RouterView />
-        </main>
+    </main>
 
 </template>

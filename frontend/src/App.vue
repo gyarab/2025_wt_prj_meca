@@ -9,7 +9,7 @@
         </RouterLink>
     </header>
     <main>
-            <RouterView />
+        <RouterView />
     </main>
 
 </template>

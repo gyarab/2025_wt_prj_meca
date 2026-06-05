@@ -11,5 +11,4 @@
     <main>
         <RouterView />
     </main>
-
 </template>

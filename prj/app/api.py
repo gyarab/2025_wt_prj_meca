@@ -1,10 +1,13 @@
-from ninja import NinjaAPI, ModelSchema, Schema
 from typing import List
+
+from django.shortcuts import get_object_or_404
+from ninja import NinjaAPI, ModelSchema, Schema
+
 from .models import Game, Player
 
-api = NinjaAPI()
+api = NinjaAPI(title = "ChessBase API", description = "REST API šachové databáze ChessBase.")
 
-# --- 1. SCHÉMATA ---
+# --- Schémata ---
 
 class GameSchema(ModelSchema):
     class Meta:

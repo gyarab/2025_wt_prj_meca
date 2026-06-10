@@ -6,7 +6,7 @@ const games = ref([])
 const router = useRouter()
 
 async function load() {
-    const url = new URL('/api/game', window.location.origin)
+    const url = new URL('/api/games', window.location.origin)
     const res = await fetch(url)
     if (!res.ok) throw new Error(`HTTP returned ${res.status}`)
     const data = await res.json()
@@ -26,8 +26,9 @@ onMounted(load)
 
     <div v-for="game in games" @click="selectGame(game)" style="cursor: pointer;">
         <h3>{{ game.title }}</h3>
-        <p>{{ game.developer.name }}</p>
-        <img :src="game.poster_url" style="max-height: 100px">
+        <p>Players: {{ game.white_player }} - {{ game.black_player }}</p>
+        <p>Moves: {{ game.moves }}</p>
+        <p>Result: {{ game.result }}</p>
     </div>
 
 </template>

@@ -1,4 +1,15 @@
 /venv/
 /prj/db.sqlite3
 *.pyc
+
+# collectstatic výstup (vzniká lokálně i v kontejneru, necommituje se)
+/prj/staticfiles/
+/prj/media/
+
+# Frontend (Vite + Vue)
 node_modules/
+dist/
+.vite/
+
+# Ansible
+*.retry

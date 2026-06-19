@@ -41,7 +41,7 @@
   -model: app.tournament
   pk: 6
   fields:
-    namme: Chess.com op playoffs
+    name: Chess.com op playoffs
     location: Online
     start_date: 2024-12-01
     end_date: 2024-12-15

@@ -138,7 +138,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 # `collectstatic` posbírá statické soubory (vč. adminu) sem; v kontejneru je to
 # sdílený volume, ze kterého je servíruje nginx. Lokálně se nepoužívá.
-STATIC_ROOT = os.environ.get('DJANGO_STATIC_ROOT', BASE_DIR / 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Uživatelsky nahrávaná média (zatím se nepoužívají — postery/fotky jsou URL),
 # ale necháme je správně nastavené pro budoucí ImageField a pro nginx /media/.

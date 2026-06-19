@@ -8,7 +8,7 @@
 #
 # Předpokládá, že stack už běží (deploy.yml proběhl) — fixtures jsou zabalené v image
 # kontejneru `web` v /app/fixtures.
-- name: Seed FilmDB database from fixtures
+- name: Seed Chessbase database from fixtures
   hosts: web
   gather_facts: false
   tasks:

@@ -28,7 +28,7 @@
 
     # Jedno volání loaddata s globem, ať Django vyřeší cizí klíče mezi soubory
     # v jedné transakci (stejně jako lokální `loaddata ../fixtures/*.yaml`).
-    - name: Load fixtures
+    - name: Load fixtures into database
       community.docker.docker_compose_v2_exec:
         project_src: "{{ project_dir }}/deploy"
         files:
@@ -37,11 +37,15 @@
           - config/production.env
         service: web
         argv:
-          - bash
-          - -c
-          - "python manage.py loaddata /app/fixtures/*.yaml"
-      register: loaddata_result
+          - python
+          - manage.py
+          - loaddata
+          - /app/fixtures/*.yaml
+  django_manage:
+    command: loaddata
+    fixtures: "openings.yaml tournaments.yaml games.yaml" # Turnaje musí jít před hrami!
+    apps_path: "/app/prj"
 
-    - name: Show loaddata output
-      ansible.builtin.debug:
-        msg: "{{ loaddata_result.stdout_lines | default([]) }}"
+- name: Show loaddata output
+    ansible.builtin.debug:
+    msg: "{{ loaddata_result.stdout_lines | default([]) }}"

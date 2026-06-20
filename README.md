@@ -1,73 +1,11 @@
-# Webová aplikace
-Vznikla v předmětu Webové technologie na Gymnáziu Arabská ve školním roce 2025/2026.
+# Chessbase — webová aplikace
 
-## Local development
+Referenční projekt pro předmět **Webové technologie** na Gymnáziu Arabská
+(školní rok 2025/2026). Slouží jako ukázka jednoduché, ale úplné aplikace
+postavené nad Django frameworkem — od datového modelu přes views a šablony
+až po REST API.
 
-Aplikace používá Python Virtual Environment, před spuštěním je potřeba vytvořit venv (pokud neexistuje):
-
-```bash
-# Linux
-python3 -m venv venv
-
-# Windows
-py -3 -m venv venv
-```
-
-Dále je třeba venv aktivovat:
-
-```bash
-# [Linux]
-source ./venv/bin/activate
-
-# Windows - Bash
-source ./venv/Scripts/activate
-
-# Windows - Power shell
-...
-```
-
-Je třeba ujistit se, že jsou nainstalovány všechny závislosti:
-
-```bash
-# (venv)$
-pip install -r requirements.txt
-```
-
-Spustit lokalni server
-
-```bash
-cd prj
-./manage.py runserver
-```
-
-Pokud pouštíme projekt poprvé, je třeba inicializovat DB pomocí
-
-```bash
-./manage.py migrate
-```
-
-Pokud je DB prázdná a chceme mít přístup do Django administrace, vytvoříme si uživatele pomocí
-
-```bash
-./manage.py createsuperuser
-```
-
-Doporučuji použít username `admin` a heslo `admin`, bez e-mailu.
-
-
-## Změna `models.py`
-
-Po kazde zmene v models.py je treba pustit skript, ktery vygeneruje zmenu struktury DB.
-
-```bash
-./manage.py makemigrations
-```
-
-Pote zmenu DB aplikovat na aktualni zivou DB
-
-```bash
-./manage.py migrate
-```
+---
 
 # ♟️ ChessBase – Databáze šachových partií
 
@@ -136,6 +74,148 @@ Hlavním přínosem aplikace je systematizace šachových dat a možnost jejich 
 ![Wireframe 4](images/wireframe_analysis.jpg)
 ![Wireframe 5](images/wireframe_login.jpg)
 
-## E-R diagram databáze
+## Datový model (E-R diagram)
+
+Vztahy mezi tabulkami v `app/models.py`. `PK` = primary key,
+`FK` = foreign key. `User` je vestavěný model z `django.contrib.auth`.
 
 ![E-R Diagram](images/er_diagram.jpg)
+
+Vztahy slovem:
+
+| Vztah                  | Typ | Realizace v Djangu                         |
+|------------------------|-----|--------------------------------------------|
+| Partie ↔ Hráč          | N:1 | `ForeignKey` (jeden hráč = jedna partie)   |
+| Partie ↔ Turnaj        | N:1 | `ForeignKey` (jedna partie = jeden turnaj) |
+| Partie ↔ Uživatel      | N:1 | `ForeignKey` (jeden uživatel = jedna partie)|
+| Partie ↔ Komentář      | 1:N | `ForeignKey` na Partii a Uživatele         |
+| Partie ↔ Hodnocení     | 1:N | `ForeignKey` + (jedna partie = jedno hodnocení) |
+| Partie ↔ Otevření      | 1:N | `ForeignKey` (jedna partie = jedno zahájení)|
+
+---
+
+## Struktura projektu ve VS code
+
+Projekt má dvě nezávislé části, každou ve své vlastní složce. V budoucnu
+půjde každou zabalit do samostatného Docker kontejneru.
+
+```
+2025_wt_prj_meca/
+├── requirements.txt           # python závislosti (backend)
+├── fixtures/                  # ukázková data v YAML (viz níže)
+│   ├── actors.yaml
+│   ├── comments.yaml
+│   ├── directors.yaml
+│   ├── genres.yaml
+│   ├── movies.yaml
+│   ├── ratings.yaml
+│   └── users.yaml
+├── prj/                       # 🐍 Django backend (API + admin + HTML frontend)
+│   ├── manage.py
+│   ├── db.sqlite3             # SQLite DB (vznikne po `migrate`)
+│   ├── prj/                   # nastavení projektu
+│   │   ├── settings.py
+│   │   └── urls.py            # root URL conf — namapuje /, /admin, /api
+│   └── app/                   # naše hlavní aplikace
+│       ├── models.py          # datový model (viz E-R nahoře)
+│       ├── views.py           # HTML pohledy (landing, movies, detail, …)
+│       ├── api.py             # REST API přes django-ninja
+│       ├── forms.py           # formuláře (komentář, hodnocení, registrace)
+│       ├── admin.py           # registrace modelů do admin rozhraní
+│       ├── migrations/        # automaticky generované migrace
+│       ├── static/            # CSS, obrázky
+│       └── templates/         # HTML šablony
+│           ├── base.html
+│           ├── landing.html   # `/` — rozcestník mezi Django a Vue frontendem
+│           ├── home.html      # `/movies/` — seznam filmů (Django frontend)
+│           ├── movie_detail.html
+│           ├── actors.html / actor_detail.html
+│           ├── directors.html / director_detail.html
+│           └── registration/  # login.html, register.html
+└── frontend/                  # ⚡ Vue SPA frontend (alternativa Django šablon)
+    ├── README.md              # podrobný popis Node/npm/Vite/Vue
+    ├── package.json           # JS závislosti + npm skripty
+    ├── vite.config.js         # dev server, proxy /api → :8000
+    ├── index.html
+    └── src/
+        ├── main.js
+        ├── App.vue
+        ├── style.css
+        ├── router/index.js
+        └── views/
+            ├── MovieList.vue   # `/`            — volá GET /api/movie
+            └── MovieDetail.vue # `/movie/:id`   — volá GET /api/movie/{id}
+```
+
+---
+
+
+
+## Lokální spuštění
+
+Aplikace používá Python Virtual Environment, před spuštěním je potřeba vytvořit venv (pokud neexistuje):
+
+```bash
+# Linux
+python3 -m venv venv
+
+# Windows
+py -3 -m venv venv
+```
+
+Dále je třeba venv aktivovat:
+
+```bash
+# [Linux]
+source ./venv/bin/activate
+
+# Windows - Bash
+source ./venv/Scripts/activate
+
+# Windows - Power shell
+...
+```
+
+Je třeba ujistit se, že jsou nainstalovány všechny závislosti:
+
+```bash
+# (venv)$
+pip install -r requirements.txt
+```
+
+Spustit lokalni server
+
+```bash
+cd prj
+./manage.py runserver
+```
+
+Pokud pouštíme projekt poprvé, je třeba inicializovat DB pomocí
+
+```bash
+./manage.py migrate
+```
+
+Pokud je DB prázdná a chceme mít přístup do Django administrace, vytvoříme si uživatele pomocí
+
+```bash
+./manage.py createsuperuser
+```
+
+Doporučuji použít username `admin` a heslo `admin`, bez e-mailu.
+
+
+## Změna `models.py`
+
+Po kazde zmene v models.py je treba pustit skript, ktery vygeneruje zmenu struktury DB.
+
+```bash
+./manage.py makemigrations
+```
+
+Pote zmenu DB aplikovat na aktualni zivou DB
+
+```bash
+./manage.py migrate
+```
+

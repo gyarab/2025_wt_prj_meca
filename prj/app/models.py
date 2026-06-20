@@ -30,6 +30,16 @@ class Opening(models.Model):
     def __str__(self):
         return f"{self.name} ({self.ECO_code})"
 
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='comments')
+    game = models.ForeignKey('Game', on_delete=models.SET_NULL, null=True, related_name='comments') # 'Game' v uvozovkách, pokud je definován níže v souboru
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Comment by {self.user} on {self.game}"
+
 class Game(models.Model):
     RESULT_CHOICES = [
         ("1-0", "1-0"),

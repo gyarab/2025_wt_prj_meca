@@ -1,0 +1,17 @@
+- model : app.comment
+  pk: 1
+  fields:
+    user : 2
+    game: 1
+    content: "Amazing game! The move 3...Nf6 was brilliant."
+    created_at: 2024-06-01T12:00:00Z
+    updated_at: 2024-06-01T12:00:00Z
+
+- model : app.comment
+  pk: 2
+  fields:
+    user : 2  
+    game: 2
+    content: "I think White missed a chance to play more aggressive moves after 5...a6."
+    created_at: 2024-06-02T15:30:00Z
+    updated_at: 2024-06-02T15:30:00Z

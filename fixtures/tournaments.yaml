@@ -10,9 +10,9 @@
   pk: 2
   fields:
     name: Candidates Tournament
-    location: Yekaterinburg
-    start_date: 2020-06-16
-    end_date: 2020-07-07
+    location: Madrid
+    start_date: 2022-03-15
+    end_date: 2022-03-29
 
 - model: app.tournament
   pk: 3

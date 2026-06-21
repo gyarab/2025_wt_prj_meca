@@ -39,6 +39,13 @@ class Comment(models.Model):
     
     def __str__(self):
         return f"Comment by {self.user} on {self.game}"
+    
+    
+class Rating (models.Model):
+    user = models.ForeignKey(User, on_delete = models.SET_NULL, null=True, related_name='ratings')    
+    game = models.ForeignKey('Game', on_delete = models.SET_NULL, null=True, related_name='ratings')
+    content = models.TextField()
+    rating = models.PositiveSmallIntegerField()
 
 class Game(models.Model):
     RESULT_CHOICES = [

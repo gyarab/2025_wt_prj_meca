@@ -1,0 +1,15 @@
+- model: app.rating 
+  pk : 1
+  fields:
+    user : 2
+    game : 1
+    content : "This game was a great example of strategic play. The opening was well-executed, and the middle game showcased excellent tactical awareness. I particularly liked how the player handled the transition into the endgame."
+    rating : 5
+    
+- model: app.rating
+  pk : 2
+  fields:
+    user : 2
+    game : 2
+    content : "The game was quite intense, with both players showing strong defensive skills. However, I felt that the opening could have been more dynamic. The middle game was well-fought, but the endgame lacked clarity. Overall, a solid performance."
+    rating : 4
